@@ -8,10 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SNMPBrowser
-{
-    public partial class MainForm : Form
-    {
+namespace SNMPBrowser {
+    public partial class MainForm : Form {
         private SNMPClient clientSNMP = new SNMPClient();
         private string selectedOperation;
 
@@ -19,8 +17,7 @@ namespace SNMPBrowser
         private const string GET_NEXT_REQUEST = "GetNextRequest";
         private const string OBSERVE = "Observe";
 
-        public MainForm()
-        {
+        public MainForm() {
             InitializeComponent();
         }
 
@@ -37,15 +34,11 @@ namespace SNMPBrowser
         }
 
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e) {
-
             selectedOperation = operationComboBox.SelectedItem.ToString();
-
         }
 
         private void goButton_Click(object sender, EventArgs e) {
-
-            switch (selectedOperation)
-            {
+            switch (selectedOperation) {
                 case GET_REQUEST:
 
                     break;
@@ -55,10 +48,7 @@ namespace SNMPBrowser
                 case OBSERVE:
 
                     break;
-
             }
-                
-
         }
 
         private void removeTabButton_Click(object sender, EventArgs e) {
