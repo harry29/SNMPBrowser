@@ -12,7 +12,7 @@ namespace SNMPBrowser
 {
     public partial class MainForm : Form
     {
-        ClientSNMP clientSNMP = new ClientSNMP();
+        private ClientSNMP clientSNMP = new ClientSNMP();
         private string selectedOperation;
 
         private const string GET_REQUEST = "GetRequest";
@@ -22,11 +22,18 @@ namespace SNMPBrowser
         public MainForm()
         {
             InitializeComponent();
-            
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
+            operationComboBox_Initialize();
+        }
 
+        private void operationComboBox_Initialize() {
+            operationComboBox.Items.Add(GET_REQUEST);
+            operationComboBox.Items.Add(GET_NEXT_REQUEST);
+            operationComboBox.Items.Add(OBSERVE);
+
+            operationComboBox.SelectedItem = GET_REQUEST;
         }
 
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e) {
@@ -40,7 +47,7 @@ namespace SNMPBrowser
         }
 
         private void removeTabButton_Click(object sender, EventArgs e) {
-
+            tabControl.TabPages.Remove(tabControl.SelectedTab);
         }
     }
 }
