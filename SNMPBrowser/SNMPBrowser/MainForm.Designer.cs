@@ -50,15 +50,10 @@
             // operationComboBox
             // 
             this.operationComboBox.FormattingEnabled = true;
-            this.operationComboBox.Items.AddRange(new object[] {
-            "GetRequest",
-            "GetNextRequest",
-            "Observe"});
             this.operationComboBox.Location = new System.Drawing.Point(297, 14);
             this.operationComboBox.Name = "operationComboBox";
             this.operationComboBox.Size = new System.Drawing.Size(140, 21);
             this.operationComboBox.TabIndex = 2;
-            this.operationComboBox.Text = "GetRequest";
             this.operationComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
             // label1
