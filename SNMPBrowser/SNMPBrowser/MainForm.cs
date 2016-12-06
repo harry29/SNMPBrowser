@@ -12,9 +12,17 @@ namespace SNMPBrowser
 {
     public partial class MainForm : Form
     {
+        ClientSNMP clientSNMP = new ClientSNMP();
+        private string selectedOperation;
+
+        private const string GET_REQUEST = "GetRequest";
+        private const string GET_NEXT_REQUEST = "GetNextRequest";
+        private const string OBSERVE = "Observe";
+
         public MainForm()
         {
             InitializeComponent();
+            
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -22,6 +30,8 @@ namespace SNMPBrowser
         }
 
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e) {
+
+            selectedOperation = operationComboBox.SelectedItem.ToString();
 
         }
 
