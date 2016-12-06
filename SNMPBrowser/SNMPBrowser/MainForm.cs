@@ -12,7 +12,7 @@ namespace SNMPBrowser
 {
     public partial class MainForm : Form
     {
-        private ClientSNMP clientSNMP = new ClientSNMP();
+        private SNMPClient clientSNMP = new SNMPClient();
         private string selectedOperation;
 
         private const string GET_REQUEST = "GetRequest";
