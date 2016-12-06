@@ -14,7 +14,9 @@ namespace SNMPBrowser
 
         SimpleSnmp snmp = new SimpleSnmp(host, community);
 
-        
+        public Dictionary<Oid, AsnType> getNextRequest(string oid) {
+            return snmp.GetNext(SnmpVersion.Ver2, new[] { oid });
+        }
 
     }
 }
