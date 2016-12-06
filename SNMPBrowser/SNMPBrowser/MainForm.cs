@@ -44,6 +44,21 @@ namespace SNMPBrowser
 
         private void goButton_Click(object sender, EventArgs e) {
 
+            switch (selectedOperation)
+            {
+                case GET_REQUEST:
+
+                    break;
+                case GET_NEXT_REQUEST:
+
+                    break;
+                case OBSERVE:
+
+                    break;
+
+            }
+                
+
         }
 
         private void removeTabButton_Click(object sender, EventArgs e) {
