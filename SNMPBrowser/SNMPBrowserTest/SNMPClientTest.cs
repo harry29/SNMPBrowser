@@ -1,0 +1,14 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SNMPBrowser;
+
+namespace SNMPBrowserTest {
+    [TestClass]
+    public class SNMPClientTest {
+        [TestMethod]
+        public void getRequestTest() {
+            SNMPClient snmpClient = new SNMPClient();
+            Assert.IsNotNull(snmpClient.getRequest("1.3.6.1.2.1.1.3.0"));
+        }
+    }
+}

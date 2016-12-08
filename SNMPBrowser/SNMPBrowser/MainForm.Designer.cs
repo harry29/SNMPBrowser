@@ -1,4 +1,6 @@
-﻿namespace SNMPBrowser
+﻿using EventLogProject;
+
+namespace SNMPBrowser
 {
     partial class MainForm
     {
@@ -28,7 +30,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.treeView = new System.Windows.Forms.TreeView();
             this.operationComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.goButton = new System.Windows.Forms.Button();
@@ -36,17 +37,10 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.removeTabButton = new System.Windows.Forms.Button();
-            this.oidTextBox = new System.Windows.Forms.TextBox();
+            this.oidTextBox = new FilteredTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // treeView
-            // 
-            this.treeView.Location = new System.Drawing.Point(12, 41);
-            this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(202, 388);
-            this.treeView.TabIndex = 0;
-            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             // 
             // operationComboBox
             // 
@@ -80,10 +74,10 @@
             // 
             this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Location = new System.Drawing.Point(220, 41);
+            this.tabControl.Location = new System.Drawing.Point(12, 41);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(392, 388);
+            this.tabControl.Size = new System.Drawing.Size(600, 388);
             this.tabControl.TabIndex = 1;
             // 
             // tabPage2
@@ -91,7 +85,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(384, 362);
+            this.tabPage2.Size = new System.Drawing.Size(592, 362);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -101,7 +95,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(384, 362);
+            this.tabPage1.Size = new System.Drawing.Size(592, 362);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -118,24 +112,32 @@
             // 
             // oidTextBox
             // 
-            this.oidTextBox.Enabled = false;
-            this.oidTextBox.Location = new System.Drawing.Point(12, 14);
+            this.oidTextBox.Location = new System.Drawing.Point(48, 14);
             this.oidTextBox.Name = "oidTextBox";
-            this.oidTextBox.Size = new System.Drawing.Size(202, 20);
+            this.oidTextBox.Size = new System.Drawing.Size(184, 20);
             this.oidTextBox.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "OID:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 441);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.oidTextBox);
             this.Controls.Add(this.removeTabButton);
             this.Controls.Add(this.goButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.operationComboBox);
             this.Controls.Add(this.tabControl);
-            this.Controls.Add(this.treeView);
             this.Name = "MainForm";
             this.Text = "SNMP Browser";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -146,8 +148,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.ComboBox operationComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button goButton;
@@ -155,7 +155,8 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button removeTabButton;
-        private System.Windows.Forms.TextBox oidTextBox;
+        private FilteredTextBox oidTextBox;
+        private System.Windows.Forms.Label label2;
     }
 }
 
