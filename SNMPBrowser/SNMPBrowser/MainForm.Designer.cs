@@ -34,9 +34,9 @@ namespace SNMPBrowser
             this.label1 = new System.Windows.Forms.Label();
             this.goButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.removeTabButton = new System.Windows.Forms.Button();
+            this.tableTabPage = new System.Windows.Forms.TabPage();
+            this.removeButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.oidTextBox = new EventLogProject.FilteredTextBox();
             this.tabControl.SuspendLayout();
             this.SuspendLayout();
@@ -44,9 +44,9 @@ namespace SNMPBrowser
             // operationComboBox
             // 
             this.operationComboBox.FormattingEnabled = true;
-            this.operationComboBox.Location = new System.Drawing.Point(297, 14);
+            this.operationComboBox.Location = new System.Drawing.Point(300, 14);
             this.operationComboBox.Name = "operationComboBox";
-            this.operationComboBox.Size = new System.Drawing.Size(140, 21);
+            this.operationComboBox.Size = new System.Drawing.Size(146, 21);
             this.operationComboBox.TabIndex = 2;
             this.operationComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
             // 
@@ -61,7 +61,7 @@ namespace SNMPBrowser
             // 
             // goButton
             // 
-            this.goButton.Location = new System.Drawing.Point(443, 12);
+            this.goButton.Location = new System.Drawing.Point(452, 12);
             this.goButton.Name = "goButton";
             this.goButton.Size = new System.Drawing.Size(75, 23);
             this.goButton.TabIndex = 4;
@@ -71,22 +71,32 @@ namespace SNMPBrowser
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tableTabPage);
             this.tabControl.Location = new System.Drawing.Point(12, 41);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(600, 388);
             this.tabControl.TabIndex = 1;
             // 
-            // removeTabButton
+            // tableTabPage
             // 
-            this.removeTabButton.Location = new System.Drawing.Point(524, 12);
-            this.removeTabButton.Name = "removeTabButton";
-            this.removeTabButton.Size = new System.Drawing.Size(84, 23);
-            this.removeTabButton.TabIndex = 5;
-            this.removeTabButton.Text = "Remove Tab";
-            this.removeTabButton.UseVisualStyleBackColor = true;
-            this.removeTabButton.Click += new System.EventHandler(this.removeTabButton_Click);
+            this.tableTabPage.Location = new System.Drawing.Point(4, 22);
+            this.tableTabPage.Name = "tableTabPage";
+            this.tableTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.tableTabPage.Size = new System.Drawing.Size(592, 362);
+            this.tableTabPage.TabIndex = 0;
+            this.tableTabPage.Text = "Table";
+            this.tableTabPage.UseVisualStyleBackColor = true;
+            // 
+            // removeButton
+            // 
+            this.removeButton.Location = new System.Drawing.Point(533, 12);
+            this.removeButton.Name = "removeButton";
+            this.removeButton.Size = new System.Drawing.Size(75, 23);
+            this.removeButton.TabIndex = 5;
+            this.removeButton.Text = "Remove";
+            this.removeButton.UseVisualStyleBackColor = true;
+            this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
             // 
             // label2
             // 
@@ -96,16 +106,6 @@ namespace SNMPBrowser
             this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "OID:";
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(592, 362);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // oidTextBox
             // 
@@ -121,7 +121,7 @@ namespace SNMPBrowser
             this.ClientSize = new System.Drawing.Size(624, 441);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.oidTextBox);
-            this.Controls.Add(this.removeTabButton);
+            this.Controls.Add(this.removeButton);
             this.Controls.Add(this.goButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.operationComboBox);
@@ -140,10 +140,10 @@ namespace SNMPBrowser
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button goButton;
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.Button removeTabButton;
+        private System.Windows.Forms.Button removeButton;
         private FilteredTextBox oidTextBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tableTabPage;
     }
 }
 

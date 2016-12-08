@@ -31,7 +31,7 @@ namespace SNMPBrowser {
             dataGridView.Columns.Add("valueColumn", "Value");
             dataGridView.Columns.Add("typeColumn", "Type");
             dataGridView.Size = tabControl.SelectedTab.Size;
-            tabPage1.Controls.Add(dataGridView);
+            tableTabPage.Controls.Add(dataGridView);
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -86,12 +86,16 @@ namespace SNMPBrowser {
             }
         }
 
-        private void removeTabButton_Click(object sender, EventArgs e) {
-            tabControl.TabPages.Remove(tabControl.SelectedTab);
-        }
+        private void removeButton_Click(object sender, EventArgs e) {
+            var selectedTab = tabControl.SelectedTab;
 
-        private void tabPage2_Click(object sender, EventArgs e) {
-
+            if (selectedTab.Equals(tableTabPage)) {
+                selectedTab.Controls.Remove(dataGridView);
+                createDataGrid();
+            }
+            else {
+                tabControl.TabPages.Remove(selectedTab);
+            }
         }
     }
 }
