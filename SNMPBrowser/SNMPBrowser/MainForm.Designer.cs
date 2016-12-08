@@ -34,11 +34,10 @@ namespace SNMPBrowser
             this.label1 = new System.Windows.Forms.Label();
             this.goButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.removeTabButton = new System.Windows.Forms.Button();
-            this.oidTextBox = new FilteredTextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.oidTextBox = new EventLogProject.FilteredTextBox();
             this.tabControl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,33 +71,12 @@ namespace SNMPBrowser
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Location = new System.Drawing.Point(12, 41);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(600, 388);
             this.tabControl.TabIndex = 1;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(592, 362);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(592, 362);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // removeTabButton
             // 
@@ -110,13 +88,6 @@ namespace SNMPBrowser
             this.removeTabButton.UseVisualStyleBackColor = true;
             this.removeTabButton.Click += new System.EventHandler(this.removeTabButton_Click);
             // 
-            // oidTextBox
-            // 
-            this.oidTextBox.Location = new System.Drawing.Point(48, 14);
-            this.oidTextBox.Name = "oidTextBox";
-            this.oidTextBox.Size = new System.Drawing.Size(184, 20);
-            this.oidTextBox.TabIndex = 6;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -125,6 +96,23 @@ namespace SNMPBrowser
             this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "OID:";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(592, 362);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // oidTextBox
+            // 
+            this.oidTextBox.Location = new System.Drawing.Point(48, 14);
+            this.oidTextBox.Name = "oidTextBox";
+            this.oidTextBox.Size = new System.Drawing.Size(184, 20);
+            this.oidTextBox.TabIndex = 6;
             // 
             // MainForm
             // 
@@ -152,11 +140,10 @@ namespace SNMPBrowser
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button goButton;
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button removeTabButton;
         private FilteredTextBox oidTextBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }
 

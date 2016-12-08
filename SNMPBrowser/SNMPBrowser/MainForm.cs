@@ -7,9 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SnmpSharpNet;
 
 namespace SNMPBrowser {
     public partial class MainForm : Form {
+        private DataGridView dataGridView;
+
         private SNMPClient clientSNMP = new SNMPClient();
         private string selectedOperation;
 
@@ -19,6 +22,16 @@ namespace SNMPBrowser {
 
         public MainForm() {
             InitializeComponent();
+            createDataGrid();
+        }
+
+        private void createDataGrid() {
+            dataGridView = new DataGridView();
+            dataGridView.Columns.Add("oidColumn", "OID");
+            dataGridView.Columns.Add("valueColumn", "Value");
+            dataGridView.Columns.Add("typeColumn", "Type");
+            dataGridView.Size = tabControl.SelectedTab.Size;
+            tabPage1.Controls.Add(dataGridView);
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -37,15 +50,38 @@ namespace SNMPBrowser {
             selectedOperation = operationComboBox.SelectedItem.ToString();
         }
 
+        private void showResult(Dictionary<Oid, AsnType> result) {
+            foreach (KeyValuePair<Oid, AsnType> entry in result) {
+                if (entry.Value.ToString().Equals("Null")) {
+                    MessageBox.Show("Request failed.", "SNMP Browser Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else {
+                    dataGridView.Rows.Add(entry.Key.ToString(), entry.Value.ToString(), SnmpConstants.GetTypeName(entry.Value.Type));
+                }
+            }
+        }
+
         private void goButton_Click(object sender, EventArgs e) {
             switch (selectedOperation) {
                 case GET_REQUEST:
+                    Dictionary<Oid, AsnType> result = clientSNMP.getRequest(oidTextBox.Text);
+
+                    if (result == null) {
+                        MessageBox.Show("Request failed.");
+                    }
+                    else {
+                        showResult(result);
+                    }                   
 
                     break;
                 case GET_NEXT_REQUEST:
-
+                    clientSNMP.getNextRequest(oidTextBox.Text);
                     break;
                 case OBSERVE:
+                    TabPage observeTabPage = new TabPage("Observe");
+                    tabControl.TabPages.Add(observeTabPage);
+
+                    clientSNMP.observe(oidTextBox.Text);
 
                     break;
             }
@@ -55,9 +91,7 @@ namespace SNMPBrowser {
             tabControl.TabPages.Remove(tabControl.SelectedTab);
         }
 
-        private void treeView_AfterSelect(object sender, TreeViewEventArgs e) {
-            
-
+        private void tabPage2_Click(object sender, EventArgs e) {
 
         }
     }
