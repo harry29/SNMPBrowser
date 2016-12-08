@@ -51,12 +51,19 @@ namespace SNMPBrowser {
         }
 
         private void showResult(Dictionary<Oid, AsnType> result) {
-            foreach (KeyValuePair<Oid, AsnType> entry in result) {
-                if (entry.Value.ToString().Equals("Null")) {
-                    MessageBox.Show("Request failed.", "SNMP Browser Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else {
-                    dataGridView.Rows.Add(entry.Key.ToString(), entry.Value.ToString(), SnmpConstants.GetTypeName(entry.Value.Type));
+            if (result == null) {
+                MessageBox.Show("Request failed.");
+            }
+            else {
+                foreach (KeyValuePair<Oid, AsnType> entry in result) {
+                    if (entry.Value.ToString().Equals("Null")) {
+                        MessageBox.Show("Request failed.", "SNMP Browser Error", MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    }
+                    else {
+                        dataGridView.Rows.Add(entry.Key.ToString(), entry.Value.ToString(),
+                            SnmpConstants.GetTypeName(entry.Value.Type));
+                    }
                 }
             }
         }
@@ -64,18 +71,10 @@ namespace SNMPBrowser {
         private void goButton_Click(object sender, EventArgs e) {
             switch (selectedOperation) {
                 case GET_REQUEST:
-                    Dictionary<Oid, AsnType> result = clientSNMP.getRequest(oidTextBox.Text);
-
-                    if (result == null) {
-                        MessageBox.Show("Request failed.");
-                    }
-                    else {
-                        showResult(result);
-                    }                   
-
+                    showResult(clientSNMP.getRequest(oidTextBox.Text));
                     break;
                 case GET_NEXT_REQUEST:
-                    clientSNMP.getNextRequest(oidTextBox.Text);
+                    showResult(clientSNMP.getNextRequest(oidTextBox.Text));
                     break;
                 case OBSERVE:
                     TabPage observeTabPage = new TabPage("Observe");
