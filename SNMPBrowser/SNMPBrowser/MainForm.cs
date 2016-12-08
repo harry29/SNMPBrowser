@@ -55,14 +55,17 @@ namespace SNMPBrowser
                 case OBSERVE:
 
                     break;
-
             }
-                
-
         }
 
         private void removeTabButton_Click(object sender, EventArgs e) {
             tabControl.TabPages.Remove(tabControl.SelectedTab);
+        }
+
+        private void treeView_AfterSelect(object sender, TreeViewEventArgs e) {
+            
+
+
         }
     }
 }
