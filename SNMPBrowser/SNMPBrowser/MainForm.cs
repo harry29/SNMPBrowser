@@ -15,7 +15,7 @@ namespace SNMPBrowser {
     public partial class MainForm : Form {
         private DataGridView dataGridView;
         private DataGridView trapGridView;
-        private TextBox textbox;
+
         TabPage trapTabPage = new TabPage("Trap Receiver");
 
         private SNMPClient clientSNMP = new SNMPClient();
@@ -41,16 +41,20 @@ namespace SNMPBrowser {
             dataGridView.Columns.Add("typeColumn", "Type");
             dataGridView.Size = tabControl.SelectedTab.Size;
             tableTabPage.Controls.Add(dataGridView);
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
         }
 
         private void createTrapGridView() {
             trapGridView = new DataGridView();
-            //trapGridView.Columns.Add("communityColumn", "Community");
-            //trapGridView.Columns.Add("vbColumn", "VarBind Count");
+            trapGridView.Columns.Add("versionColumn", "SNMP Version");
+            trapGridView.Columns.Add("communityColumn", "Community");
+            trapGridView.Columns.Add("vbColumn", "VarBind Count");
             trapGridView.Columns.Add("oidColumn", "OID");
             trapGridView.Columns.Add("valueColumn", "Value");
             trapGridView.Columns.Add("typeColumn", "Type");
-            
+            trapGridView.Columns.Add("timeColumn", "Time");
+            trapGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -102,14 +106,9 @@ namespace SNMPBrowser {
                     break;
                 case RECEIVE_TRAP:
                     tabControl.TabPages.Add(trapTabPage);
-
-                    //trapTabPage.Controls.Add(trapGridView);
-                    //trapGridView.Size = trapTabPage.Size;
-                    textbox = new TextBox();
-                    textbox.Multiline = true;
-                    textbox.Size = trapTabPage.Size;
-                    
-                    trapTabPage.Controls.Add(textbox);
+                    trapTabPage.Controls.Add(trapGridView);
+                    trapGridView.Size = trapTabPage.Size;
+                    trapTabPage.Controls.Add(trapGridView);
 
                     tabControl.SelectedTab = trapTabPage;
 
@@ -120,7 +119,7 @@ namespace SNMPBrowser {
 
 
         public void receiveTrap() {
-        
+            
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             IPEndPoint ipep = new IPEndPoint(IPAddress.Any, 162);
             EndPoint ep = (EndPoint)ipep;
@@ -139,7 +138,7 @@ namespace SNMPBrowser {
                     inlen = socket.ReceiveFrom(indata, ref inep);
                 }
                 catch (Exception ex) {
-                    textbox.AppendText(string.Format("Exception {0}", ex.Message + "\n"));
+                    MessageBox.Show("Exception{0}", ex.Message);
                     inlen = -1;
                 }
                 if (inlen > 0) {
@@ -149,42 +148,33 @@ namespace SNMPBrowser {
                         // Parse SNMP Version 1 TRAP packet 
                         SnmpV1TrapPacket pkt = new SnmpV1TrapPacket();
                         pkt.decode(indata, inlen);
-                        textbox.AppendText(string.Format("** SNMP Version 1 TRAP received from {0}:", inep.ToString() + "\n"));
-                        textbox.AppendText(string.Format("*** Trap generic: {0}", pkt.Pdu.Generic + "\n"));
-                        textbox.AppendText(string.Format("*** Trap specific: {0}", pkt.Pdu.Specific + "\n"));
-                        textbox.AppendText(string.Format("*** Agent address: {0}", pkt.Pdu.AgentAddress.ToString() + "\n"));
-                        textbox.AppendText(string.Format("*** Timestamp: {0}", pkt.Pdu.TimeStamp.ToString() + "\n"));
-                        textbox.AppendText(string.Format("*** VarBind count: {0}", pkt.Pdu.VbList.Count + "\n"));
-                        textbox.AppendText(string.Format("*** VarBind content:" + "\n"));
+                        //textbox.AppendText(string.Format("** SNMP Version 1 TRAP received from {0}:", inep.ToString() + "\n"));
+                        //textbox.AppendText(string.Format("*** Trap generic: {0}", pkt.Pdu.Generic + "\n"));
+                        //textbox.AppendText(string.Format("*** Trap specific: {0}", pkt.Pdu.Specific + "\n"));
+                        //textbox.AppendText(string.Format("*** Agent address: {0}", pkt.Pdu.AgentAddress.ToString() + "\n"));
+                        //textbox.AppendText(string.Format("*** Timestamp: {0}", pkt.Pdu.TimeStamp.ToString() + "\n"));
                         foreach (Vb v in pkt.Pdu.VbList) {
-                            textbox.AppendText(string.Format("**** {0} {1}: {2}", v.Oid.ToString(), SnmpConstants.GetTypeName(v.Value.Type), v.Value.ToString() + "\n"));
+                            trapGridView.Rows.Add("SNMPv1", pkt.Community.ToString(), pkt.Pdu.VbList.Count, v.Oid.ToString(), v.Value.ToString(), SnmpConstants.GetTypeName(v.Value.Type), DateTime.Now.ToString("G"));
                         }
-                        textbox.AppendText("** End of SNMP Version 1 TRAP data." + "\n");
                     }
                     else {
                         // Parse SNMP Version 2 TRAP packet 
                         SnmpV2Packet pkt = new SnmpV2Packet();
                         pkt.decode(indata, inlen);
-                        textbox.AppendText(string.Format("** SNMP Version 2 TRAP received from {0}:", inep.ToString() + "\n"));
+                        //textbox.AppendText(string.Format("** SNMP Version 2 TRAP received from {0}:", inep.ToString() + "\n"));
                         if ((SnmpSharpNet.PduType)pkt.Pdu.Type != PduType.V2Trap) {
-                           textbox.AppendText(string.Format("*** NOT an SNMPv2 trap ****" + "\n"));
+                            MessageBox.Show(" NOT an SNMPv2 trap");
                         }
                         else {
-                            textbox.AppendText(string.Format("*** Community: {0}", pkt.Community.ToString() + "\n"));
-                            textbox.AppendText(string.Format("*** VarBind count: {0}", pkt.Pdu.VbList.Count + "\n"));
-                            textbox.AppendText(string.Format("*** VarBind content:" + "\n"));
                             foreach (Vb v in pkt.Pdu.VbList) {
-                                textbox.AppendText(string.Format("**** {0} {1}: {2} \n",
-                                   v.Oid.ToString(), SnmpConstants.GetTypeName(v.Value.Type), v.Value.ToString() + "\n"));
-                                
+                                trapGridView.Rows.Add("SNMPv2", pkt.Community.ToString(), pkt.Pdu.VbList.Count, v.Oid.ToString(), v.Value.ToString(), SnmpConstants.GetTypeName(v.Value.Type), DateTime.Now.ToString("G"));
                             }
-                            textbox.AppendText(string.Format("** End of SNMP Version 2 TRAP data. \n"));
                         }
                     }
                 }
                 else {
                     if (inlen == 0)
-                        textbox.AppendText(string.Format("Zero length packet received." + "\n"));
+                        MessageBox.Show("Zero length packet received.");
                 }
             }
         }
