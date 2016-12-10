@@ -52,6 +52,7 @@
             this.textBoxIpAddress.Name = "textBoxIpAddress";
             this.textBoxIpAddress.Size = new System.Drawing.Size(171, 20);
             this.textBoxIpAddress.TabIndex = 1;
+            this.textBoxIpAddress.Text = "127.0.0.1";
             // 
             // textBoxPort
             // 
@@ -59,6 +60,7 @@
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(171, 20);
             this.textBoxPort.TabIndex = 2;
+            this.textBoxPort.Text = "162";
             // 
             // textBoxCommunity
             // 
@@ -66,6 +68,7 @@
             this.textBoxCommunity.Name = "textBoxCommunity";
             this.textBoxCommunity.Size = new System.Drawing.Size(171, 20);
             this.textBoxCommunity.TabIndex = 3;
+            this.textBoxCommunity.Text = "public";
             // 
             // textBoxOID
             // 
