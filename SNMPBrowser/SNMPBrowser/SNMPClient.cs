@@ -24,7 +24,7 @@ namespace SNMPBrowser
             return snmp.GetNext(SnmpVersion.Ver2, new[] { oid });
         }
 
-        public void observe(string oid) {
+        public void Observe() {
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             IPEndPoint ipep = new IPEndPoint(IPAddress.Any, 162);
             EndPoint ep = (EndPoint)ipep;
@@ -90,7 +90,6 @@ namespace SNMPBrowser
                 }
             }
         }
-
     }
 }
 

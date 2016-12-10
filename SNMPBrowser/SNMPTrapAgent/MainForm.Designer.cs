@@ -24,11 +24,11 @@
         /// </summary>
         private void InitializeComponent() {
             this.notifyButton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBoxIpAddress = new System.Windows.Forms.TextBox();
+            this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.textBoxCommunity = new System.Windows.Forms.TextBox();
+            this.textBoxOID = new System.Windows.Forms.TextBox();
+            this.textBoxValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,41 +44,42 @@
             this.notifyButton.TabIndex = 0;
             this.notifyButton.Text = "Notify";
             this.notifyButton.UseVisualStyleBackColor = true;
+            this.notifyButton.Click += new System.EventHandler(this.notifyButton_Click);
             // 
-            // textBox1
+            // textBoxIpAddress
             // 
-            this.textBox1.Location = new System.Drawing.Point(101, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(171, 20);
-            this.textBox1.TabIndex = 1;
+            this.textBoxIpAddress.Location = new System.Drawing.Point(101, 12);
+            this.textBoxIpAddress.Name = "textBoxIpAddress";
+            this.textBoxIpAddress.Size = new System.Drawing.Size(171, 20);
+            this.textBoxIpAddress.TabIndex = 1;
             // 
-            // textBox2
+            // textBoxPort
             // 
-            this.textBox2.Location = new System.Drawing.Point(101, 38);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(171, 20);
-            this.textBox2.TabIndex = 2;
+            this.textBoxPort.Location = new System.Drawing.Point(101, 38);
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.Size = new System.Drawing.Size(171, 20);
+            this.textBoxPort.TabIndex = 2;
             // 
-            // textBox3
+            // textBoxCommunity
             // 
-            this.textBox3.Location = new System.Drawing.Point(101, 64);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(171, 20);
-            this.textBox3.TabIndex = 3;
+            this.textBoxCommunity.Location = new System.Drawing.Point(101, 64);
+            this.textBoxCommunity.Name = "textBoxCommunity";
+            this.textBoxCommunity.Size = new System.Drawing.Size(171, 20);
+            this.textBoxCommunity.TabIndex = 3;
             // 
-            // textBox4
+            // textBoxOID
             // 
-            this.textBox4.Location = new System.Drawing.Point(101, 90);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(171, 20);
-            this.textBox4.TabIndex = 4;
+            this.textBoxOID.Location = new System.Drawing.Point(101, 90);
+            this.textBoxOID.Name = "textBoxOID";
+            this.textBoxOID.Size = new System.Drawing.Size(171, 20);
+            this.textBoxOID.TabIndex = 4;
             // 
-            // textBox5
+            // textBoxValue
             // 
-            this.textBox5.Location = new System.Drawing.Point(101, 116);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(171, 20);
-            this.textBox5.TabIndex = 5;
+            this.textBoxValue.Location = new System.Drawing.Point(101, 116);
+            this.textBoxValue.Name = "textBoxValue";
+            this.textBoxValue.Size = new System.Drawing.Size(171, 20);
+            this.textBoxValue.TabIndex = 5;
             // 
             // label1
             // 
@@ -135,11 +136,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxValue);
+            this.Controls.Add(this.textBoxOID);
+            this.Controls.Add(this.textBoxCommunity);
+            this.Controls.Add(this.textBoxPort);
+            this.Controls.Add(this.textBoxIpAddress);
             this.Controls.Add(this.notifyButton);
             this.Name = "MainForm";
             this.Text = "SMNP Trap Agent";
@@ -151,11 +152,11 @@
         #endregion
 
         private System.Windows.Forms.Button notifyButton;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBoxIpAddress;
+        private System.Windows.Forms.TextBox textBoxPort;
+        private System.Windows.Forms.TextBox textBoxCommunity;
+        private System.Windows.Forms.TextBox textBoxOID;
+        private System.Windows.Forms.TextBox textBoxValue;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
