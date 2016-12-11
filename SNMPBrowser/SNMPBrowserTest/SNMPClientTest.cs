@@ -4,11 +4,11 @@ using SNMPBrowser;
 
 namespace SNMPBrowserTest {
     [TestClass]
-    public class SNMPClientTest {
+    public class SnmpClientTest {
         [TestMethod]
         public void getRequestTest() {
-            SNMPClient snmpClient = new SNMPClient();
-            Assert.IsNotNull(snmpClient.getRequest("1.3.6.1.2.1.1.3.0"));
+            SnmpClient snmpClient = new SnmpClient();
+            Assert.IsNotNull(snmpClient.GetRequest("1.3.6.1.2.1.1.3.0"));
         }
 
         //[TestMethod]

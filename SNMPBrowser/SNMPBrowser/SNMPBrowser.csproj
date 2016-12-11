@@ -50,10 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorMessageBox.cs" />
     <Compile Include="FilteredTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SNMPClient.cs" />
+    <Compile Include="SnmpClient.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

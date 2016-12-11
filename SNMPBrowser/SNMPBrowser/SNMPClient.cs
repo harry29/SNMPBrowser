@@ -5,90 +5,84 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using SnmpSharpNet;
+using SNMPBrowser.Properties;
 
 namespace SNMPBrowser
 {
-    public class SNMPClient
+    public class SnmpClient
     {
-        public static string host = "localhost";
-        public static string community = "public";
+        public delegate void TrapHandler(object sender, SnmpPacket snmpPacket);
+        public event TrapHandler OnTrapRecieved;
 
-        SimpleSnmp snmp = new SimpleSnmp(host, community);
+        private readonly SimpleSnmp _simpleSnmp;
+        private readonly SnmpVersion _snmpVersion;
 
-        public Dictionary<Oid, AsnType> getRequest(string oid) {
-            return snmp.Get(SnmpVersion.Ver2, new[] { oid });
+        public SnmpClient() {
+            _simpleSnmp = new SimpleSnmp(Settings.Default.Host, Settings.Default.Community);
+            _snmpVersion = Settings.Default.SnmpVersion;
         }
 
-        public Dictionary<Oid, AsnType> getNextRequest(string oid) {
-            return snmp.GetNext(SnmpVersion.Ver2, new[] { oid });
+        public Dictionary<Oid, AsnType> GetRequest(string oid) {
+            return _simpleSnmp.Get(_snmpVersion, new[] { oid });
+        }
+
+        public Dictionary<Oid, AsnType> GetNextRequest(string oid) {
+            return _simpleSnmp.GetNext(_snmpVersion, new[] { oid });
         }
 
         public void Observe() {
-            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            IPEndPoint ipep = new IPEndPoint(IPAddress.Any, 162);
-            EndPoint ep = (EndPoint)ipep;
-            socket.Bind(ep);
-            // Disable timeout processing. Just block until packet is received 
-            socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, 0);
-            bool run = true;
-            int inlen = -1;
-            while (run) {
-                byte[] indata = new byte[16 * 1024];
-                // 16KB receive buffer int inlen = 0;
-                IPEndPoint peer = new IPEndPoint(IPAddress.Any, 0);
-                EndPoint inep = (EndPoint)peer;
-                try {
-                    inlen = socket.ReceiveFrom(indata, ref inep);
-                }
-                catch (Exception ex) {
-                    Console.WriteLine("Exception {0}", ex.Message);
-                    inlen = -1;
-                }
-                if (inlen > 0) {
-                    // Check protocol version int 
-                    int ver = SnmpPacket.GetProtocolVersion(indata, inlen);
-                    if (ver == (int)SnmpVersion.Ver1) {
-                        // Parse SNMP Version 1 TRAP packet 
-                        SnmpV1TrapPacket pkt = new SnmpV1TrapPacket();
-                        pkt.decode(indata, inlen);
-                        Console.WriteLine("** SNMP Version 1 TRAP received from {0}:", inep.ToString());
-                        Console.WriteLine("*** Trap generic: {0}", pkt.Pdu.Generic);
-                        Console.WriteLine("*** Trap specific: {0}", pkt.Pdu.Specific);
-                        Console.WriteLine("*** Agent address: {0}", pkt.Pdu.AgentAddress.ToString());
-                        Console.WriteLine("*** Timestamp: {0}", pkt.Pdu.TimeStamp.ToString());
-                        Console.WriteLine("*** VarBind count: {0}", pkt.Pdu.VbList.Count);
-                        Console.WriteLine("*** VarBind content:");
-                        foreach (Vb v in pkt.Pdu.VbList) {
-                            Console.WriteLine("**** {0} {1}: {2}", v.Oid.ToString(), SnmpConstants.GetTypeName(v.Value.Type), v.Value.ToString());
-                        }
-                        Console.WriteLine("** End of SNMP Version 1 TRAP data.");
-                    }
-                    else {
-                        // Parse SNMP Version 2 TRAP packet 
-                        SnmpV2Packet pkt = new SnmpV2Packet();
-                        pkt.decode(indata, inlen);
-                        Console.WriteLine("** SNMP Version 2 TRAP received from {0}:", inep.ToString());
-                        if ((SnmpSharpNet.PduType)pkt.Pdu.Type != PduType.V2Trap) {
-                            Console.WriteLine("*** NOT an SNMPv2 trap ****");
-                        }
-                        else {
-                            Console.WriteLine("*** Community: {0}", pkt.Community.ToString());
-                            Console.WriteLine("*** VarBind count: {0}", pkt.Pdu.VbList.Count);
-                            Console.WriteLine("*** VarBind content:");
-                            foreach (Vb v in pkt.Pdu.VbList) {
-                                Console.WriteLine("**** {0} {1}: {2}",
-                                   v.Oid.ToString(), SnmpConstants.GetTypeName(v.Value.Type), v.Value.ToString());
+
+        }
+
+        public void Listen() {
+            var ipEndPoint = new IPEndPoint(IPAddress.Any, 162);
+
+            Task.Run(async () => {
+                var run = true;
+                while (run) {
+                    try {
+                        using (var udpListener = new UdpClient(ipEndPoint)) {
+                            var udpRecieveResult = await udpListener.ReceiveAsync();
+                            var recievedData = udpRecieveResult.Buffer;
+
+                            int protocolVersion = SnmpPacket.GetProtocolVersion(recievedData, recievedData.Length);
+
+                            switch (protocolVersion) {
+                                case (int) SnmpVersion.Ver1:
+                                    var snmpV1TrapPacket = new SnmpV1TrapPacket();
+                                    snmpV1TrapPacket.decode(recievedData, recievedData.Length);
+                                    RecieveTrap(snmpV1TrapPacket);
+                                    break;
+
+                                case (int) SnmpVersion.Ver2:
+                                    var snmpV2Packet = new SnmpV2Packet();
+                                    snmpV2Packet.decode(recievedData, recievedData.Length);
+                                    RecieveTrap(snmpV2Packet);
+                                    break;
+
+                                case (int) SnmpVersion.Ver3:
+                                    var snmpV3Packet = new SnmpV3Packet();
+                                    snmpV3Packet.decode(recievedData, recievedData.Length);
+                                    RecieveTrap(snmpV3Packet);
+                                    break;
                             }
-                            Console.WriteLine("** End of SNMP Version 2 TRAP data.");
                         }
                     }
+                    catch (SocketException e) {
+                        ErrorMessageBox.Show($"Port {ipEndPoint.Port} is already used.");
+                        run = false;
+                    }
+                    catch (Exception e) {
+                        ErrorMessageBox.Show($"{e.Message}");
+                    }
                 }
-                else {
-                    if (inlen == 0)
-                        Console.WriteLine("Zero length packet received.");
-                }
-            }
+            });
+        }
+
+        protected void RecieveTrap(SnmpPacket snmpPacket) {
+            OnTrapRecieved?.Invoke(this, snmpPacket);
         }
     }
 }

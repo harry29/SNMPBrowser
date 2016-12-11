@@ -38,7 +38,6 @@ namespace SNMPBrowser
             this.removeButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.oidTextBox = new EventLogProject.FilteredTextBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -115,10 +114,6 @@ namespace SNMPBrowser
             this.oidTextBox.Size = new System.Drawing.Size(184, 20);
             this.oidTextBox.TabIndex = 6;
             // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -149,7 +144,6 @@ namespace SNMPBrowser
         private FilteredTextBox oidTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage tableTabPage;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

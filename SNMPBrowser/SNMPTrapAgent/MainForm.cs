@@ -28,7 +28,8 @@ namespace SNMPTrapAgent {
         }
 
         private void notifyButton_Click(object sender, EventArgs e) {
-            col.Add(new Oid(textBoxOID.Text), new OctetString(textBoxValue.Text));
+            addCollection();
+            //col.Add(new Oid(textBoxOID.Text), new OctetString(textBoxValue.Text));
             agent.SendV2Trap(new IpAddress(textBoxIpAddress.Text), Int32.Parse(textBoxPort.Text), textBoxCommunity.Text, 13433,
                  new Oid(textBoxOID.Text), col);
             col.Clear();
