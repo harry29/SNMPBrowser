@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using SnmpSharpNet;
+using SNMPBrowser.Properties;
 
 namespace SNMPBrowser {
     public partial class MainForm : Form {
@@ -15,6 +17,7 @@ namespace SNMPBrowser {
 
         private const string GetRequest = "GetRequest";
         private const string GetNextRequest = "GetNextRequest";
+        private const string GetTable = "GetTable";
         private const string Monitor = "Monitor";
         private const string Listen = "Listen";
 
@@ -65,6 +68,7 @@ namespace SNMPBrowser {
         private void operationComboBox_Initialize() {
             operationComboBox.Items.Add(GetRequest);
             operationComboBox.Items.Add(GetNextRequest);
+            operationComboBox.Items.Add(GetTable);
             operationComboBox.Items.Add(Listen);
             operationComboBox.Items.Add(Monitor);
             
@@ -100,8 +104,11 @@ namespace SNMPBrowser {
                 case GetNextRequest:
                     ShowResult(_snmpClient.GetNextRequest(oidTextBox.Text));
                     break;
+                case GetTable:
+                    ShowResult(_snmpClient.GetTable(oidTextBox.Text));
+                    break;
                 case Monitor:
-                    
+                    MonitorObject(oidTextBox.Text);
                     break;
                 case Listen:
                     _snmpClient.Listen();
@@ -114,6 +121,17 @@ namespace SNMPBrowser {
                     tabControl.SelectedTab = _trapTabPage;
                     break;
             }
+        }
+
+        private void MonitorObject(string oid) {
+            var timer = new Timer {Interval = Settings.Default.MonitorInterval};
+            timer.Tick += (sender, eventArgs) => OnTick(sender, eventArgs, oid);
+            timer.Start();
+            //TODO List of running tasks so user could stop them. Maybe binding TabPanel with actions?
+        }
+
+        private void OnTick(object sender, EventArgs e, string oid) {
+            ShowResult(_snmpClient.GetRequest(oid));
         }
 
         private void removeButton_Click(object sender, EventArgs e) {

@@ -41,15 +41,21 @@ namespace SNMPBrowser.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Ver2")]
         public global::SnmpSharpNet.SnmpVersion SnmpVersion {
             get {
                 return ((global::SnmpSharpNet.SnmpVersion)(this["SnmpVersion"]));
             }
-            set {
-                this["SnmpVersion"] = value;
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public int MonitorInterval {
+            get {
+                return ((int)(this["MonitorInterval"]));
             }
         }
     }

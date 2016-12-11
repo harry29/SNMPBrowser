@@ -32,8 +32,10 @@ namespace SNMPBrowser
             return _simpleSnmp.GetNext(_snmpVersion, new[] { oid });
         }
 
-        public void Observe() {
-
+        public Dictionary<Oid, AsnType> GetTable(string oid) {
+            //TODO Marek getTable implementation using SimpleSnmp.GetBulk
+            ErrorMessageBox.Show("Not implemented.");
+            return null;
         }
 
         public void Listen() {
@@ -70,7 +72,7 @@ namespace SNMPBrowser
                             }
                         }
                     }
-                    catch (SocketException e) {
+                    catch (SocketException) {
                         ErrorMessageBox.Show($"Port {ipEndPoint.Port} is already used.");
                         run = false;
                     }
