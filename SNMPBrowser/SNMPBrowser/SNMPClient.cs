@@ -33,9 +33,10 @@ namespace SNMPBrowser
         }
 
         public Dictionary<Oid, AsnType> GetTable(string oid) {
-            //TODO Marek getTable implementation using SimpleSnmp.GetBulk
-            ErrorMessageBox.Show("Not implemented.");
-            return null;
+            Pdu bulkPdu = new Pdu();
+            bulkPdu.Type = PduType.GetBulk;
+            bulkPdu.VbList.Add(oid);
+            return _simpleSnmp.GetBulk(bulkPdu);
         }
 
         public void Listen() {
