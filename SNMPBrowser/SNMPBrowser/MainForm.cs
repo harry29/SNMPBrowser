@@ -38,7 +38,7 @@ namespace SNMPBrowser {
         }
 
         private void ReceiveTrap(object sender, SnmpPacket snmpPacket) {
-            foreach (var vb in snmpPacket.Pdu.VbList) {
+            foreach (var vb in snmpPacket.GetValues()) {
                 trapListenerDataGridView.Rows.Add(vb.Oid.ToString(), vb.Value.ToString(),
                     SnmpConstants.GetTypeName(vb.Value.Type),
                     DateTime.Now.ToString("G"), snmpPacket.Version);

@@ -32,7 +32,7 @@ namespace SNMPBrowser
             return _simpleSnmp.GetNext(_snmpVersion, new[] { oid });
         }
 
-        private Dictionary<Oid, AsnType> GetTable(string rootOid) {
+        public Dictionary<Oid, AsnType> GetTable(string rootOid) {
             return null;
         }
 
@@ -54,6 +54,7 @@ namespace SNMPBrowser
                         using (var udpListener = new UdpClient(ipEndPoint)) {
                             var udpRecieveResult = await udpListener.ReceiveAsync();
                             var recievedData = udpRecieveResult.Buffer;
+                            var agentIpAddress = udpRecieveResult.RemoteEndPoint.Address;
 
                             int protocolVersion = SnmpPacket.GetProtocolVersion(recievedData, recievedData.Length);
 
