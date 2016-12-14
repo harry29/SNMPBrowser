@@ -32,10 +32,15 @@ namespace SNMPBrowser
             return _simpleSnmp.GetNext(_snmpVersion, new[] { oid });
         }
 
-        public Dictionary<Oid, AsnType> GetTable(string oid) {
-            Pdu bulkPdu = new Pdu();
-            bulkPdu.Type = PduType.GetBulk;
+        private Dictionary<Oid, AsnType> GetTable(string rootOid) {
+            return null;
+        }
+
+        private Dictionary<Oid, AsnType> GetBulk(string oid, int maxRepetitions, int nonRepeaters) {
+            var bulkPdu = new Pdu {Type = PduType.GetBulk};
             bulkPdu.VbList.Add(oid);
+            bulkPdu.MaxRepetitions = maxRepetitions;
+            bulkPdu.NonRepeaters = nonRepeaters;
             return _simpleSnmp.GetBulk(bulkPdu);
         }
 
