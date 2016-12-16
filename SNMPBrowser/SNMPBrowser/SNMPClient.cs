@@ -14,6 +14,7 @@ namespace SNMPBrowser
     public class SnmpClient
     {
         public delegate void TrapHandler(object sender, SnmpPacket snmpPacket);
+        public string CurrentOid { get; private set; }
         public event TrapHandler OnTrapRecieved;
 
         private readonly SimpleSnmp _simpleSnmp;
@@ -25,43 +26,28 @@ namespace SNMPBrowser
         }
 
         public Dictionary<Oid, AsnType> GetRequest(string oid) {
+            CurrentOid = oid;
             return _simpleSnmp.Get(_snmpVersion, new[] { oid });
         }
 
         public Dictionary<Oid, AsnType> GetNextRequest(string oid) {
-            return _simpleSnmp.GetNext(_snmpVersion, new[] { oid });
+            var result = _simpleSnmp.GetNext(_snmpVersion, new[] { oid });
+
+            CurrentOid = result.FirstOrDefault().Key.ToString();
+
+            return result;
         }
 
         public Dictionary<Oid, AsnType> GetTable(string oid) {
+            var result = new Dictionary<Oid, AsnType>();
+            var tableRootOid = oid.TrimStart('.');
 
-            char oidChar = oid[oid.Length - 1];
-            char nextOidChar;
-            string startOid = oid;
+            CurrentOid = tableRootOid;
+            do {
+                result = result?.Concat(GetNextRequest(CurrentOid)).ToDictionary(pair => pair.Key, pair => pair.Value);
+            } while (CurrentOid.Contains(tableRootOid));
 
-            Oid nextOid = null;
-            AsnType nextValue = null;
-            Dictionary<Oid, AsnType> table = new Dictionary<Oid, AsnType>();
-
-            do
-            {
-                string nextOidString = null;
-
-                Dictionary<Oid, AsnType> result = _simpleSnmp.GetNext(_snmpVersion, new[] { oid });
-                foreach (KeyValuePair<Oid, AsnType> entry in result)
-                {
-                    nextOidString = entry.Key.ToString();
-                    nextOid = entry.Key;
-                    nextValue = entry.Value;
-                }
-                nextOidChar = nextOidString[startOid.Length-2];
-                if (nextOidChar == oidChar)
-                {
-                    table.Add(nextOid, nextValue);
-                }
-                oid = nextOidString;  
-            }
-            while (nextOidChar == oidChar);
-            return table;
+            return result;
         }
 
         private Dictionary<Oid, AsnType> GetBulk(string oid, int maxRepetitions, int nonRepeaters)

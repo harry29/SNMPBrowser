@@ -16,7 +16,7 @@ namespace SNMPBrowserTest {
         [TestMethod]
         public void GetTableTest() {
             SnmpClient snmpClient = new SnmpClient();
-            ShowGetTableResult(snmpClient.GetTable(".1.3.6.1.2.1.6.13"));
+            ShowGetTableResult(snmpClient.GetTable("1.3.6.1.2.1.6.13"));
         }
 
         [TestMethod]
@@ -27,12 +27,7 @@ namespace SNMPBrowserTest {
 
         private void ShowGetTableResult(Dictionary<Oid, AsnType> result) {
             List<KeyValuePair<Oid, AsnType>> resultList = new List<KeyValuePair<Oid, AsnType>>(result);
-            for (int i = 0; i < resultList.Count - 1; i++) {
-                var prev = resultList[i];
-                var next = resultList[i + 1];
-
-                Console.WriteLine(prev.Key.FindRoot(next.Key));
-            }
+            //TODO: Method converting resultList to DataGridView applicable table.
         }
     }
 }
