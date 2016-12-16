@@ -54,6 +54,7 @@
     <Compile Include="FilteredTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="OidExtension.cs" />
     <Compile Include="SnmpClient.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
