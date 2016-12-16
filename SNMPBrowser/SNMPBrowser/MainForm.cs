@@ -70,18 +70,23 @@ namespace SNMPBrowser {
             switch (_selectedOperation) {
                 case GetRequest:
                     ShowResult(_snmpClient.GetRequest(oidTextBox.Text) , requestTableDataGridView);
+                    tabControl.SelectedTab = requestTabPage;
                     break;
                 case GetNextRequest:
                     ShowResult(_snmpClient.GetNextRequest(oidTextBox.Text), requestTableDataGridView);
+                    tabControl.SelectedTab = requestTabPage;
                     break;
                 case GetTable:
                     ShowResult(_snmpClient.GetTable(oidTextBox.Text), requestTableDataGridView);
+                    tabControl.SelectedTab = tableViewTabPage;
                     break;
                 case Monitor:
                     MonitorObject(oidTextBox.Text);
+                    tabControl.SelectedTab = monitorTabPage;
                     break;
                 case Listen:
                     _snmpClient.Listen();
+                    tabControl.SelectedTab = trapListenerTabPage;
                     break;
             }
         }

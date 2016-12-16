@@ -39,30 +39,34 @@ namespace SNMPBrowser
             this.oidColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monitorTabPage = new System.Windows.Forms.TabPage();
-            this.trapListenerTabPage = new System.Windows.Forms.TabPage();
-            this.clearButton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.oidTextBox = new EventLogProject.FilteredTextBox();
             this.timeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.monitorTabPage = new System.Windows.Forms.TabPage();
             this.monitorDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trapListenerTabPage = new System.Windows.Forms.TabPage();
             this.trapListenerDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.versionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clearButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.oidTextBox = new EventLogProject.FilteredTextBox();
+            this.tableViewTabPage = new System.Windows.Forms.TabPage();
+            this.tableViewDataGridView = new System.Windows.Forms.DataGridView();
             this.tabControl.SuspendLayout();
             this.requestTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.requestTableDataGridView)).BeginInit();
             this.monitorTabPage.SuspendLayout();
-            this.trapListenerTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.monitorDataGridView)).BeginInit();
+            this.trapListenerTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trapListenerDataGridView)).BeginInit();
+            this.tableViewTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tableViewDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // operationComboBox
@@ -98,6 +102,7 @@ namespace SNMPBrowser
             this.tabControl.Controls.Add(this.requestTabPage);
             this.tabControl.Controls.Add(this.monitorTabPage);
             this.tabControl.Controls.Add(this.trapListenerTabPage);
+            this.tabControl.Controls.Add(this.tableViewTabPage);
             this.tabControl.Location = new System.Drawing.Point(12, 41);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -149,6 +154,12 @@ namespace SNMPBrowser
             this.typeColumn.Name = "typeColumn";
             this.typeColumn.ReadOnly = true;
             // 
+            // timeColumn
+            // 
+            this.timeColumn.HeaderText = "Time";
+            this.timeColumn.Name = "timeColumn";
+            this.timeColumn.ReadOnly = true;
+            // 
             // monitorTabPage
             // 
             this.monitorTabPage.Controls.Add(this.monitorDataGridView);
@@ -159,49 +170,6 @@ namespace SNMPBrowser
             this.monitorTabPage.TabIndex = 2;
             this.monitorTabPage.Text = "Monitor";
             this.monitorTabPage.UseVisualStyleBackColor = true;
-            // 
-            // trapListenerTabPage
-            // 
-            this.trapListenerTabPage.Controls.Add(this.trapListenerDataGridView);
-            this.trapListenerTabPage.Location = new System.Drawing.Point(4, 22);
-            this.trapListenerTabPage.Name = "trapListenerTabPage";
-            this.trapListenerTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.trapListenerTabPage.Size = new System.Drawing.Size(592, 362);
-            this.trapListenerTabPage.TabIndex = 3;
-            this.trapListenerTabPage.Text = "Trap Listener";
-            this.trapListenerTabPage.UseVisualStyleBackColor = true;
-            // 
-            // clearButton
-            // 
-            this.clearButton.Location = new System.Drawing.Point(533, 12);
-            this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(75, 23);
-            this.clearButton.TabIndex = 5;
-            this.clearButton.Text = "Clear";
-            this.clearButton.UseVisualStyleBackColor = true;
-            this.clearButton.Click += new System.EventHandler(this.removeButton_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "OID:";
-            // 
-            // oidTextBox
-            // 
-            this.oidTextBox.Location = new System.Drawing.Point(48, 14);
-            this.oidTextBox.Name = "oidTextBox";
-            this.oidTextBox.Size = new System.Drawing.Size(184, 20);
-            this.oidTextBox.TabIndex = 6;
-            // 
-            // timeColumn
-            // 
-            this.timeColumn.HeaderText = "Time";
-            this.timeColumn.Name = "timeColumn";
-            this.timeColumn.ReadOnly = true;
             // 
             // monitorDataGridView
             // 
@@ -242,6 +210,17 @@ namespace SNMPBrowser
             this.dataGridViewTextBoxColumn4.HeaderText = "Time";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // trapListenerTabPage
+            // 
+            this.trapListenerTabPage.Controls.Add(this.trapListenerDataGridView);
+            this.trapListenerTabPage.Location = new System.Drawing.Point(4, 22);
+            this.trapListenerTabPage.Name = "trapListenerTabPage";
+            this.trapListenerTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.trapListenerTabPage.Size = new System.Drawing.Size(592, 362);
+            this.trapListenerTabPage.TabIndex = 3;
+            this.trapListenerTabPage.Text = "Trap Listener";
+            this.trapListenerTabPage.UseVisualStyleBackColor = true;
             // 
             // trapListenerDataGridView
             // 
@@ -290,6 +269,54 @@ namespace SNMPBrowser
             this.versionColumn.Name = "versionColumn";
             this.versionColumn.ReadOnly = true;
             // 
+            // clearButton
+            // 
+            this.clearButton.Location = new System.Drawing.Point(533, 12);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(75, 23);
+            this.clearButton.TabIndex = 5;
+            this.clearButton.Text = "Clear";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.removeButton_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "OID:";
+            // 
+            // oidTextBox
+            // 
+            this.oidTextBox.Location = new System.Drawing.Point(48, 14);
+            this.oidTextBox.Name = "oidTextBox";
+            this.oidTextBox.Size = new System.Drawing.Size(184, 20);
+            this.oidTextBox.TabIndex = 6;
+            // 
+            // tableViewTabPage
+            // 
+            this.tableViewTabPage.Controls.Add(this.tableViewDataGridView);
+            this.tableViewTabPage.Location = new System.Drawing.Point(4, 22);
+            this.tableViewTabPage.Name = "tableViewTabPage";
+            this.tableViewTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.tableViewTabPage.Size = new System.Drawing.Size(592, 362);
+            this.tableViewTabPage.TabIndex = 4;
+            this.tableViewTabPage.Text = "Table View";
+            this.tableViewTabPage.UseVisualStyleBackColor = true;
+            // 
+            // tableViewDataGridView
+            // 
+            this.tableViewDataGridView.AllowUserToAddRows = false;
+            this.tableViewDataGridView.AllowUserToDeleteRows = false;
+            this.tableViewDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableViewDataGridView.Location = new System.Drawing.Point(0, 0);
+            this.tableViewDataGridView.Name = "tableViewDataGridView";
+            this.tableViewDataGridView.ReadOnly = true;
+            this.tableViewDataGridView.Size = new System.Drawing.Size(592, 362);
+            this.tableViewDataGridView.TabIndex = 3;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -309,9 +336,11 @@ namespace SNMPBrowser
             this.requestTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.requestTableDataGridView)).EndInit();
             this.monitorTabPage.ResumeLayout(false);
-            this.trapListenerTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.monitorDataGridView)).EndInit();
+            this.trapListenerTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trapListenerDataGridView)).EndInit();
+            this.tableViewTabPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tableViewDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -344,6 +373,8 @@ namespace SNMPBrowser
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn versionColumn;
+        private System.Windows.Forms.TabPage tableViewTabPage;
+        private System.Windows.Forms.DataGridView tableViewDataGridView;
     }
 }
 
