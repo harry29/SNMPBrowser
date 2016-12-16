@@ -33,11 +33,46 @@ namespace SNMPBrowser
         }
 
         public Dictionary<Oid, AsnType> GetTable(string oid) {
-            Pdu bulkPdu = new Pdu();
-            bulkPdu.Type = PduType.GetBulk;
+
+            char oidChar = oid[oid.Length - 1];
+            char nextOidChar;
+            string startOid = oid;
+
+            Oid nextOid = null;
+            AsnType nextValue = null;
+            Dictionary<Oid, AsnType> table = new Dictionary<Oid, AsnType>();
+
+            do
+            {
+                string nextOidString = null;
+
+                Dictionary<Oid, AsnType> result = _simpleSnmp.GetNext(_snmpVersion, new[] { oid });
+                foreach (KeyValuePair<Oid, AsnType> entry in result)
+                {
+                    nextOidString = entry.Key.ToString();
+                    nextOid = entry.Key;
+                    nextValue = entry.Value;
+                }
+                nextOidChar = nextOidString[startOid.Length-2];
+                if (nextOidChar == oidChar)
+                {
+                    table.Add(nextOid, nextValue);
+                }
+                oid = nextOidString;  
+            }
+            while (nextOidChar == oidChar);
+            return table;
+        }
+
+        private Dictionary<Oid, AsnType> GetBulk(string oid, int maxRepetitions, int nonRepeaters)
+        {
+            var bulkPdu = new Pdu { Type = PduType.GetBulk };
             bulkPdu.VbList.Add(oid);
+            bulkPdu.MaxRepetitions = maxRepetitions;
+            bulkPdu.NonRepeaters = nonRepeaters;
             return _simpleSnmp.GetBulk(bulkPdu);
         }
+
 
         public void Listen() {
             var ipEndPoint = new IPEndPoint(IPAddress.Any, 162);
