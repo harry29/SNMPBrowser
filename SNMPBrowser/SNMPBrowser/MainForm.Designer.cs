@@ -53,11 +53,15 @@ namespace SNMPBrowser
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.versionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableViewTabPage = new System.Windows.Forms.TabPage();
+            this.tableViewDataGridView = new System.Windows.Forms.DataGridView();
             this.clearButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.oidTextBox = new EventLogProject.FilteredTextBox();
-            this.tableViewTabPage = new System.Windows.Forms.TabPage();
-            this.tableViewDataGridView = new System.Windows.Forms.DataGridView();
+            this.column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.requestTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.requestTableDataGridView)).BeginInit();
@@ -269,6 +273,33 @@ namespace SNMPBrowser
             this.versionColumn.Name = "versionColumn";
             this.versionColumn.ReadOnly = true;
             // 
+            // tableViewTabPage
+            // 
+            this.tableViewTabPage.Controls.Add(this.tableViewDataGridView);
+            this.tableViewTabPage.Location = new System.Drawing.Point(4, 22);
+            this.tableViewTabPage.Name = "tableViewTabPage";
+            this.tableViewTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.tableViewTabPage.Size = new System.Drawing.Size(592, 362);
+            this.tableViewTabPage.TabIndex = 4;
+            this.tableViewTabPage.Text = "Table View";
+            this.tableViewTabPage.UseVisualStyleBackColor = true;
+            // 
+            // tableViewDataGridView
+            // 
+            this.tableViewDataGridView.AllowUserToAddRows = false;
+            this.tableViewDataGridView.AllowUserToDeleteRows = false;
+            this.tableViewDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableViewDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.column1,
+            this.Column2,
+            this.Column3,
+            this.Column4});
+            this.tableViewDataGridView.Location = new System.Drawing.Point(0, 0);
+            this.tableViewDataGridView.Name = "tableViewDataGridView";
+            this.tableViewDataGridView.ReadOnly = true;
+            this.tableViewDataGridView.Size = new System.Drawing.Size(592, 362);
+            this.tableViewDataGridView.TabIndex = 3;
+            // 
             // clearButton
             // 
             this.clearButton.Location = new System.Drawing.Point(533, 12);
@@ -295,27 +326,29 @@ namespace SNMPBrowser
             this.oidTextBox.Size = new System.Drawing.Size(184, 20);
             this.oidTextBox.TabIndex = 6;
             // 
-            // tableViewTabPage
+            // column1
             // 
-            this.tableViewTabPage.Controls.Add(this.tableViewDataGridView);
-            this.tableViewTabPage.Location = new System.Drawing.Point(4, 22);
-            this.tableViewTabPage.Name = "tableViewTabPage";
-            this.tableViewTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.tableViewTabPage.Size = new System.Drawing.Size(592, 362);
-            this.tableViewTabPage.TabIndex = 4;
-            this.tableViewTabPage.Text = "Table View";
-            this.tableViewTabPage.UseVisualStyleBackColor = true;
+            this.column1.HeaderText = "OID";
+            this.column1.Name = "column1";
+            this.column1.ReadOnly = true;
             // 
-            // tableViewDataGridView
+            // Column2
             // 
-            this.tableViewDataGridView.AllowUserToAddRows = false;
-            this.tableViewDataGridView.AllowUserToDeleteRows = false;
-            this.tableViewDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tableViewDataGridView.Location = new System.Drawing.Point(0, 0);
-            this.tableViewDataGridView.Name = "tableViewDataGridView";
-            this.tableViewDataGridView.ReadOnly = true;
-            this.tableViewDataGridView.Size = new System.Drawing.Size(592, 362);
-            this.tableViewDataGridView.TabIndex = 3;
+            this.Column2.HeaderText = "Value";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Type";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Time";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
             // 
             // MainForm
             // 
@@ -375,6 +408,10 @@ namespace SNMPBrowser
         private System.Windows.Forms.DataGridViewTextBoxColumn versionColumn;
         private System.Windows.Forms.TabPage tableViewTabPage;
         private System.Windows.Forms.DataGridView tableViewDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }
 

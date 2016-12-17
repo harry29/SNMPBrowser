@@ -77,7 +77,7 @@ namespace SNMPBrowser {
                     tabControl.SelectedTab = requestTabPage;
                     break;
                 case GetTable:
-                    ShowResult(_snmpClient.GetTable(oidTextBox.Text), requestTableDataGridView);
+                    ShowResult(_snmpClient.GetTable(oidTextBox.Text), tableViewDataGridView);
                     tabControl.SelectedTab = tableViewTabPage;
                     break;
                 case Monitor:

@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SharpSnmpLib.Full">
+      <HintPath>..\packages\Lextm.SharpSnmpLib.9.0.5\lib\net45\SharpSnmpLib.Full.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpSnmpLib.Portable">
+      <HintPath>..\packages\Lextm.SharpSnmpLib.9.0.5\lib\net45\SharpSnmpLib.Portable.dll</HintPath>
+    </Reference>
     <Reference Include="SnmpSharpNet, Version=0.9.4.0, Culture=neutral, PublicKeyToken=b2181aa3b9571feb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\SnmpSharpNet.dll</HintPath>
