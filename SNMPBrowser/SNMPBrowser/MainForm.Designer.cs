@@ -32,7 +32,6 @@ namespace SNMPBrowser
         {
             this.operationComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.goButton = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.requestTabPage = new System.Windows.Forms.TabPage();
             this.requestTableDataGridView = new System.Windows.Forms.DataGridView();
@@ -55,13 +54,17 @@ namespace SNMPBrowser
             this.versionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableViewTabPage = new System.Windows.Forms.TabPage();
             this.tableViewDataGridView = new System.Windows.Forms.DataGridView();
-            this.clearButton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.oidTextBox = new EventLogProject.FilteredTextBox();
             this.column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.oidTextBox = new EventLogProject.FilteredTextBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.goToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.monitoredObjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl.SuspendLayout();
             this.requestTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.requestTableDataGridView)).BeginInit();
@@ -71,12 +74,13 @@ namespace SNMPBrowser
             ((System.ComponentModel.ISupportInitialize)(this.trapListenerDataGridView)).BeginInit();
             this.tableViewTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableViewDataGridView)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // operationComboBox
             // 
             this.operationComboBox.FormattingEnabled = true;
-            this.operationComboBox.Location = new System.Drawing.Point(300, 14);
+            this.operationComboBox.Location = new System.Drawing.Point(466, 27);
             this.operationComboBox.Name = "operationComboBox";
             this.operationComboBox.Size = new System.Drawing.Size(146, 21);
             this.operationComboBox.TabIndex = 2;
@@ -85,21 +89,11 @@ namespace SNMPBrowser
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(238, 17);
+            this.label1.Location = new System.Drawing.Point(404, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Operation:";
-            // 
-            // goButton
-            // 
-            this.goButton.Location = new System.Drawing.Point(452, 12);
-            this.goButton.Name = "goButton";
-            this.goButton.Size = new System.Drawing.Size(75, 23);
-            this.goButton.TabIndex = 4;
-            this.goButton.Text = "Go";
-            this.goButton.UseVisualStyleBackColor = true;
-            this.goButton.Click += new System.EventHandler(this.goButton_Click);
             // 
             // tabControl
             // 
@@ -107,7 +101,7 @@ namespace SNMPBrowser
             this.tabControl.Controls.Add(this.monitorTabPage);
             this.tabControl.Controls.Add(this.trapListenerTabPage);
             this.tabControl.Controls.Add(this.tableViewTabPage);
-            this.tabControl.Location = new System.Drawing.Point(12, 41);
+            this.tabControl.Location = new System.Drawing.Point(12, 53);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(600, 388);
@@ -172,7 +166,7 @@ namespace SNMPBrowser
             this.monitorTabPage.Padding = new System.Windows.Forms.Padding(3);
             this.monitorTabPage.Size = new System.Drawing.Size(592, 362);
             this.monitorTabPage.TabIndex = 2;
-            this.monitorTabPage.Text = "Monitor";
+            this.monitorTabPage.Text = "Monitored Objects";
             this.monitorTabPage.UseVisualStyleBackColor = true;
             // 
             // monitorDataGridView
@@ -300,32 +294,6 @@ namespace SNMPBrowser
             this.tableViewDataGridView.Size = new System.Drawing.Size(592, 362);
             this.tableViewDataGridView.TabIndex = 3;
             // 
-            // clearButton
-            // 
-            this.clearButton.Location = new System.Drawing.Point(533, 12);
-            this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(75, 23);
-            this.clearButton.TabIndex = 5;
-            this.clearButton.Text = "Clear";
-            this.clearButton.UseVisualStyleBackColor = true;
-            this.clearButton.Click += new System.EventHandler(this.removeButton_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "OID:";
-            // 
-            // oidTextBox
-            // 
-            this.oidTextBox.Location = new System.Drawing.Point(48, 14);
-            this.oidTextBox.Name = "oidTextBox";
-            this.oidTextBox.Size = new System.Drawing.Size(184, 20);
-            this.oidTextBox.TabIndex = 6;
-            // 
             // column1
             // 
             this.column1.HeaderText = "OID";
@@ -350,19 +318,76 @@ namespace SNMPBrowser
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "OID:";
+            // 
+            // oidTextBox
+            // 
+            this.oidTextBox.Location = new System.Drawing.Point(52, 27);
+            this.oidTextBox.Name = "oidTextBox";
+            this.oidTextBox.Size = new System.Drawing.Size(346, 20);
+            this.oidTextBox.TabIndex = 6;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.goToolStripMenuItem,
+            this.monitoredObjectsToolStripMenuItem,
+            this.clearToolStripMenuItem,
+            this.optionsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(624, 24);
+            this.menuStrip1.TabIndex = 8;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // goToolStripMenuItem
+            // 
+            this.goToolStripMenuItem.Name = "goToolStripMenuItem";
+            this.goToolStripMenuItem.Size = new System.Drawing.Size(34, 20);
+            this.goToolStripMenuItem.Text = "Go";
+            this.goToolStripMenuItem.Click += new System.EventHandler(this.goToolStripMenuItem_Click);
+            // 
+            // monitoredObjectsToolStripMenuItem
+            // 
+            this.monitoredObjectsToolStripMenuItem.Name = "monitoredObjectsToolStripMenuItem";
+            this.monitoredObjectsToolStripMenuItem.Size = new System.Drawing.Size(118, 20);
+            this.monitoredObjectsToolStripMenuItem.Text = "Monitored Objects";
+            this.monitoredObjectsToolStripMenuItem.Click += new System.EventHandler(this.monitoredObjectsToolStripMenuItem_Click);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(624, 441);
+            this.ClientSize = new System.Drawing.Size(624, 461);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.oidTextBox);
-            this.Controls.Add(this.clearButton);
-            this.Controls.Add(this.goButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.operationComboBox);
             this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "SNMP Browser";
             this.tabControl.ResumeLayout(false);
@@ -374,6 +399,8 @@ namespace SNMPBrowser
             ((System.ComponentModel.ISupportInitialize)(this.trapListenerDataGridView)).EndInit();
             this.tableViewTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tableViewDataGridView)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -382,9 +409,7 @@ namespace SNMPBrowser
         #endregion
         private System.Windows.Forms.ComboBox operationComboBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button goButton;
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.Button clearButton;
         private FilteredTextBox oidTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage requestTabPage;
@@ -412,6 +437,11 @@ namespace SNMPBrowser
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem goToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem monitoredObjectsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
     }
 }
 

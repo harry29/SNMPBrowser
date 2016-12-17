@@ -7,18 +7,20 @@ using SNMPBrowser.Properties;
 namespace SNMPBrowser {
     public partial class MainForm : Form {
         private SnmpClient _snmpClient;
+        private Dictionary<string, Timer> _monitoredObjects;
         private string _selectedOperation;
 
         private const string GetRequest = "GetRequest";
         private const string GetNextRequest = "GetNextRequest";
         private const string GetTable = "GetTable";
-        private const string Monitor = "Monitor";
+        private const string MonitorObject = "MonitorObject";
         private const string Listen = "Listen";
 
         public MainForm() {
             InitializeComponent();
             InitializeSnmpClient();
             operationComboBox_Initialize();
+            _monitoredObjects = new Dictionary<string, Timer>();
         }
 
         private void InitializeSnmpClient() {
@@ -32,7 +34,7 @@ namespace SNMPBrowser {
             operationComboBox.Items.Add(GetNextRequest);
             operationComboBox.Items.Add(GetTable);
             operationComboBox.Items.Add(Listen);
-            operationComboBox.Items.Add(Monitor);
+            operationComboBox.Items.Add(MonitorObject);
 
             operationComboBox.SelectedItem = GetRequest;
         }
@@ -66,10 +68,28 @@ namespace SNMPBrowser {
             }
         }
 
-        private void goButton_Click(object sender, EventArgs e) {
+        private void AddToMonitoredObjects(string oid) {
+            try {
+                var timer = new Timer {Interval = Settings.Default.MonitorInterval};
+                timer.Tick += (sender, eventArgs) => OnTick(sender, eventArgs, oid);
+
+                _monitoredObjects.Add(oid, timer);
+
+                timer.Start();
+            }
+            catch (ArgumentException) {
+                ErrorMessageBox.Show($"Object {oid} is already observed.");
+            }
+        }
+
+        private void OnTick(object sender, EventArgs e, string oid) {
+            ShowResult(_snmpClient.GetRequest(oid), monitorDataGridView);
+        }
+
+        private void goToolStripMenuItem_Click(object sender, EventArgs e) {
             switch (_selectedOperation) {
                 case GetRequest:
-                    ShowResult(_snmpClient.GetRequest(oidTextBox.Text) , requestTableDataGridView);
+                    ShowResult(_snmpClient.GetRequest(oidTextBox.Text), requestTableDataGridView);
                     tabControl.SelectedTab = requestTabPage;
                     break;
                 case GetNextRequest:
@@ -80,8 +100,8 @@ namespace SNMPBrowser {
                     ShowResult(_snmpClient.GetTable(oidTextBox.Text), tableViewDataGridView);
                     tabControl.SelectedTab = tableViewTabPage;
                     break;
-                case Monitor:
-                    MonitorObject(oidTextBox.Text);
+                case MonitorObject:
+                    AddToMonitoredObjects(oidTextBox.Text);
                     tabControl.SelectedTab = monitorTabPage;
                     break;
                 case Listen:
@@ -91,21 +111,20 @@ namespace SNMPBrowser {
             }
         }
 
-        private void MonitorObject(string oid) {
-            var timer = new Timer {Interval = Settings.Default.MonitorInterval};
-            timer.Tick += (sender, eventArgs) => OnTick(sender, eventArgs, oid);
-            timer.Start();
+        private void monitoredObjectsToolStripMenuItem_Click(object sender, EventArgs e) {
+            var monitoredObjectsForm = new MonitoredObjectsForm(ref _monitoredObjects);
+            monitoredObjectsForm.Show(this);
         }
 
-        private void OnTick(object sender, EventArgs e, string oid) {
-            ShowResult(_snmpClient.GetRequest(oid), monitorDataGridView);
-        }
-
-        private void removeButton_Click(object sender, EventArgs e) {
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e) {
             var selectedTab = tabControl.SelectedTab;
 
             var selectedTabDataGridView = selectedTab.Controls[0] as DataGridView;
             selectedTabDataGridView?.Rows.Clear();
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e) {
+            //TODO Marek.
         }
     }
 }

@@ -60,6 +60,12 @@
     <Compile Include="FilteredTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MonitoredObjectsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonitoredObjectsForm.Designer.cs">
+      <DependentUpon>MonitoredObjectsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="OidExtension.cs" />
     <Compile Include="SnmpClient.cs" />
     <Compile Include="MainForm.cs">
@@ -73,6 +79,9 @@
     <Compile Include="SnmpPacketExtension.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonitoredObjectsForm.resx">
+      <DependentUpon>MonitoredObjectsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
