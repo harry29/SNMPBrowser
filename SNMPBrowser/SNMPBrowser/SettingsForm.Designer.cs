@@ -42,7 +42,7 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(13, 226);
+            this.okButton.Location = new System.Drawing.Point(12, 226);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 0;
@@ -52,7 +52,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(94, 226);
+            this.cancelButton.Location = new System.Drawing.Point(112, 226);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 1;
@@ -101,21 +101,21 @@
             // 
             this.hostTextBox.Location = new System.Drawing.Point(12, 34);
             this.hostTextBox.Name = "hostTextBox";
-            this.hostTextBox.Size = new System.Drawing.Size(242, 20);
+            this.hostTextBox.Size = new System.Drawing.Size(172, 20);
             this.hostTextBox.TabIndex = 6;
             // 
             // communityTextBox
             // 
             this.communityTextBox.Location = new System.Drawing.Point(12, 83);
             this.communityTextBox.Name = "communityTextBox";
-            this.communityTextBox.Size = new System.Drawing.Size(242, 20);
+            this.communityTextBox.Size = new System.Drawing.Size(172, 20);
             this.communityTextBox.TabIndex = 7;
             // 
             // intervalTextBox
             // 
             this.intervalTextBox.Location = new System.Drawing.Point(12, 180);
             this.intervalTextBox.Name = "intervalTextBox";
-            this.intervalTextBox.Size = new System.Drawing.Size(242, 20);
+            this.intervalTextBox.Size = new System.Drawing.Size(172, 20);
             this.intervalTextBox.TabIndex = 9;
             // 
             // comboBox1
@@ -123,7 +123,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(12, 133);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(242, 21);
+            this.comboBox1.Size = new System.Drawing.Size(172, 21);
             this.comboBox1.TabIndex = 10;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -131,7 +131,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(266, 261);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            this.ClientSize = new System.Drawing.Size(199, 261);
+            this.ControlBox = false;
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.intervalTextBox);
             this.Controls.Add(this.communityTextBox);
