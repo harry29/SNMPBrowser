@@ -47,6 +47,9 @@ namespace SNMPBrowser
                 result = result.Concat(GetNextRequest(CurrentOid)).ToDictionary(pair => pair.Key, pair => pair.Value);
             } while (CurrentOid.Contains(tableRootOid));
 
+            Oid lastOid = new Oid();
+            lastOid.Set(CurrentOid);
+            result.Remove(lastOid); 
             return result;
         }
 
