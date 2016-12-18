@@ -15,6 +15,7 @@ namespace SNMPBrowser {
         private const string GetTable = "GetTable";
         private const string MonitorObject = "MonitorObject";
         private const string Listen = "Listen";
+        public List<string> tableColumns = new List<string>();
 
         public MainForm() {
             InitializeComponent();
@@ -68,6 +69,45 @@ namespace SNMPBrowser {
             }
         }
 
+        int rowNumber;
+
+        private void ShowTable(Dictionary<Oid, AsnType> result) {
+            if (result == null) {
+                ErrorMessageBox.Show("Request failed.");
+            }
+            else {
+                int columnNumber = -1;
+
+                foreach (KeyValuePair<Oid, AsnType> entry in result) {
+                    if (entry.Value.ToString().Equals("Null")) {
+                        ErrorMessageBox.Show("Request failed.");
+                    }
+                    else {
+                        var tableRootOid = oidTextBox.Text.TrimStart('.');
+                        string Oid = entry.Key.ToString();
+                        string currentOid = Oid.Substring(0, tableRootOid.Length + 5);
+                        if (!tableColumns.Contains(currentOid)) {
+                            columnNumber++;
+                            rowNumber = 0;
+                            tableColumns.Add(currentOid);
+                            tableViewDataGridView.Columns.Add(currentOid, currentOid);
+                            if(tableViewDataGridView.Rows.Count == 0) {
+                                tableViewDataGridView.Rows.Add();
+                            }
+                            tableViewDataGridView.Rows[rowNumber].Cells[columnNumber].Value = entry.Value.ToString();
+
+                        } else if (tableColumns.Contains(currentOid)) {
+                            rowNumber++;
+                            if (columnNumber == 0) {
+                                tableViewDataGridView.Rows.Add();
+                            }
+                            tableViewDataGridView.Rows[rowNumber].Cells[columnNumber].Value = entry.Value.ToString();
+                        }
+                    }
+                }
+            }
+        }
+
         private void AddToMonitoredObjects(string oid) {
             try {
                 var timer = new Timer {Interval = Settings.Default.MonitorInterval};
@@ -97,7 +137,8 @@ namespace SNMPBrowser {
                     tabControl.SelectedTab = requestTabPage;
                     break;
                 case GetTable:
-                    ShowResult(_snmpClient.GetTable(oidTextBox.Text), tableViewDataGridView);
+                    //ShowResult(_snmpClient.GetTable(oidTextBox.Text), requestTableDataGridView);
+                    ShowTable(_snmpClient.GetTable(oidTextBox.Text));
                     tabControl.SelectedTab = tableViewTabPage;
                     break;
                 case MonitorObject:
