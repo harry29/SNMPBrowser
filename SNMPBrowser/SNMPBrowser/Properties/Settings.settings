@@ -2,16 +2,16 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SNMPBrowser.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Host" Type="System.String" Scope="Application">
+    <Setting Name="Host" Type="System.String" Scope="User">
       <Value Profile="(Default)">localhost</Value>
     </Setting>
-    <Setting Name="Community" Type="System.String" Scope="Application">
+    <Setting Name="Community" Type="System.String" Scope="User">
       <Value Profile="(Default)">public</Value>
     </Setting>
-    <Setting Name="SnmpVersion" Type="SnmpSharpNet.SnmpVersion" Scope="Application">
+    <Setting Name="SnmpVersion" Type="SnmpSharpNet.SnmpVersion" Scope="User">
       <Value Profile="(Default)">Ver2</Value>
     </Setting>
-    <Setting Name="MonitorInterval" Type="System.Int32" Scope="Application">
+    <Setting Name="MonitorInterval" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5000</Value>
     </Setting>
   </Settings>

@@ -124,7 +124,8 @@ namespace SNMPBrowser {
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e) {
-            //TODO Marek.
+            var settingsForm = new SettingsForm();
+            settingsForm.Show(this);
         }
     }
 }

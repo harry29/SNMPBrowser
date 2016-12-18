@@ -23,39 +23,51 @@ namespace SNMPBrowser.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
         public string Host {
             get {
                 return ((string)(this["Host"]));
             }
+            set {
+                this["Host"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("public")]
         public string Community {
             get {
                 return ((string)(this["Community"]));
             }
+            set {
+                this["Community"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Ver2")]
         public global::SnmpSharpNet.SnmpVersion SnmpVersion {
             get {
                 return ((global::SnmpSharpNet.SnmpVersion)(this["SnmpVersion"]));
             }
+            set {
+                this["SnmpVersion"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5000")]
         public int MonitorInterval {
             get {
                 return ((int)(this["MonitorInterval"]));
+            }
+            set {
+                this["MonitorInterval"] = value;
             }
         }
     }
