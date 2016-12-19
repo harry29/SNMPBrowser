@@ -15,7 +15,6 @@ namespace SNMPBrowser {
         private const string GetTable = "GetTable";
         private const string MonitorObject = "MonitorObject";
         private const string Listen = "Listen";
-        public List<string> tableColumns = new List<string>();
 
         public MainForm() {
             InitializeComponent();
@@ -69,40 +68,40 @@ namespace SNMPBrowser {
             }
         }
 
-        int rowNumber;
-
         private void ShowTable(Dictionary<Oid, AsnType> result) {
+            tableViewDataGridView.Columns.Clear();
             if (result == null) {
                 ErrorMessageBox.Show("Request failed.");
             }
             else {
-                int columnNumber = -1;
+                var rowNumber = 0;
+                var prevColumnNumber = -1;
 
                 foreach (KeyValuePair<Oid, AsnType> entry in result) {
                     if (entry.Value.ToString().Equals("Null")) {
                         ErrorMessageBox.Show("Request failed.");
                     }
                     else {
-                        var tableRootOid = oidTextBox.Text.TrimStart('.');
-                        string Oid = entry.Key.ToString();
-                        string currentOid = Oid.Substring(0, tableRootOid.Length + 5);
-                        if (!tableColumns.Contains(currentOid)) {
-                            columnNumber++;
-                            rowNumber = 0;
-                            tableColumns.Add(currentOid);
-                            tableViewDataGridView.Columns.Add(currentOid, currentOid);
-                            if(tableViewDataGridView.Rows.Count == 0) {
-                                tableViewDataGridView.Rows.Add();
-                            }
-                            tableViewDataGridView.Rows[rowNumber].Cells[columnNumber].Value = entry.Value.ToString();
+                        var tableRootOid = new Oid(oidTextBox.Text);
+                        var currentOid = entry.Key;
 
-                        } else if (tableColumns.Contains(currentOid)) {
+                        var cutOid = currentOid.CutCommonRoot(tableRootOid);
+
+                        var columnNumber = cutOid.LevelValue(1) - 1;
+                        if (columnNumber == prevColumnNumber)
                             rowNumber++;
-                            if (columnNumber == 0) {
-                                tableViewDataGridView.Rows.Add();
-                            }
-                            tableViewDataGridView.Rows[rowNumber].Cells[columnNumber].Value = entry.Value.ToString();
+                        else {
+                            rowNumber = 0;
+                            var tableRootOidLevels = tableRootOid.Levels();
+                            tableViewDataGridView.Columns.Add(currentOid.CutAfterLevel(tableRootOidLevels + 2), currentOid.CutAfterLevel(tableRootOidLevels + 2));
                         }
+                        
+                        if (tableViewDataGridView.Rows.Count <= rowNumber) {
+                            tableViewDataGridView.Rows.Add();
+                        }
+                        tableViewDataGridView.Rows[rowNumber].Cells[columnNumber].Value = entry.Value.ToString();
+
+                        prevColumnNumber = columnNumber;
                     }
                 }
             }
