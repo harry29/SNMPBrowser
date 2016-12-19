@@ -46,8 +46,9 @@ namespace SNMPBrowser
             Properties.Settings.Default.Host = hostTextBox.Text;
             Properties.Settings.Default.Community = communityTextBox.Text;
             Properties.Settings.Default.SnmpVersion = version;
-            Properties.Settings.Default.MonitorInterval = Int32.Parse(intervalTextBox.Text);
+            Properties.Settings.Default.MonitorInterval = int.Parse(intervalTextBox.Text);
             Properties.Settings.Default.Save();
+            Close();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)

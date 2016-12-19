@@ -133,6 +133,7 @@ namespace SNMPBrowser {
                     break;
                 case GetNextRequest:
                     ShowResult(_snmpClient.GetNextRequest(oidTextBox.Text), requestTableDataGridView);
+                    oidTextBox.Text = _snmpClient.CurrentOid;
                     tabControl.SelectedTab = requestTabPage;
                     break;
                 case GetTable:
