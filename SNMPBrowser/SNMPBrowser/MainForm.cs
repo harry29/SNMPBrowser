@@ -161,6 +161,9 @@ namespace SNMPBrowser {
 
             var selectedTabDataGridView = selectedTab.Controls[0] as DataGridView;
             selectedTabDataGridView?.Rows.Clear();
+            if (selectedTabDataGridView == tableViewDataGridView) {
+                tableViewDataGridView.Columns.Clear();
+            }
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e) {
