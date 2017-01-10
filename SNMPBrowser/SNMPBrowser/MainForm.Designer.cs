@@ -1,6 +1,4 @@
-﻿using EventLogProject;
-
-namespace SNMPBrowser
+﻿namespace SNMPBrowser
 {
     partial class MainForm
     {
@@ -56,7 +54,7 @@ namespace SNMPBrowser
             this.monitoredObjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.oidTextBox = new EventLogProject.FilteredTextBox();
+            this.oidTextBox = new FilteredTextBox();
             this.timeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();

@@ -33,15 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SharpSnmpLib.Full">
-      <HintPath>..\packages\Lextm.SharpSnmpLib.9.0.5\lib\net45\SharpSnmpLib.Full.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpSnmpLib.Portable">
-      <HintPath>..\packages\Lextm.SharpSnmpLib.9.0.5\lib\net45\SharpSnmpLib.Portable.dll</HintPath>
-    </Reference>
     <Reference Include="SnmpSharpNet, Version=0.9.4.0, Culture=neutral, PublicKeyToken=b2181aa3b9571feb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\SnmpSharpNet.dll</HintPath>
+      <HintPath>..\packages\SnmpSharpNet.0.9.4\lib\SnmpSharpNet.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -102,6 +96,7 @@
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -114,9 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="lib\SnmpSharpNet.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

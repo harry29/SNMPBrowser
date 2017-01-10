@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SNMPBrowser
@@ -25,11 +18,6 @@ namespace SNMPBrowser
             hostTextBox.Text = Properties.Settings.Default.Host.ToString();
             communityTextBox.Text = Properties.Settings.Default.Community.ToString();
             intervalTextBox.Text = Properties.Settings.Default.MonitorInterval.ToString();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void comboBox1_Initialize()

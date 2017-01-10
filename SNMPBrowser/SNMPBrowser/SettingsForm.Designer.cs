@@ -95,7 +95,6 @@
             this.intervalLabel.Size = new System.Drawing.Size(80, 13);
             this.intervalLabel.TabIndex = 5;
             this.intervalLabel.Text = "Monitor Interval";
-            this.intervalLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // hostTextBox
             // 
